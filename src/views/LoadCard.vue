@@ -17,7 +17,8 @@ export default defineComponent({
 <template>
     <Card>
         <template v-slot:body>
-            <img src="../assets/img/lock.png" alt="lock">
+            <icon name="lock" iconType="svg" />
+            <icon name="lock" iconType="png" />
         </template>
     </Card>
 </template>

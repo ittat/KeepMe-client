@@ -10,13 +10,17 @@ const props = defineProps({
     type: String,
     required: true
   },
+  iconType:{
+    type: String,
+    required: true
+  },
   width:{
     type: String,
     default: '1rem'
   }
 })
 
-const path = '/src/assert/icons/svg/' + props.name + '.svg'
+const path = '/src/assert/icons/' + props.iconType + '/' + props.name + '.' + props.iconType
 
 </script>
 
