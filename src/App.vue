@@ -5,7 +5,6 @@
 </script>
 
 <template>
-<i class="bi bi-alarm text-white"></i>
 </template>
 
 <style>
