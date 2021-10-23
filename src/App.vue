@@ -1,22 +1,13 @@
 <script setup>
-import { provide } from "@vue/runtime-core"
-import userInfo from "@views/userInfo.vue"
-import LoadCard from "@views/LoadCard.vue"
-import postDetail from "@views/postDetail.vue"
-import logIn from "@views/logIn.vue"
-import newPost from "@views/newPost.vue"
-
+import cards from "@views/cards.vue"
+import navBar from "@views/navBar.vue"
 
 
 </script>
 
 <template>
-  <userInfo></userInfo>
-  <!-- <LoadCard></LoadCard> -->
-  <!-- <logIn></logIn> -->
-  <!-- <newPost></newPost> -->
-<!-- <postDetail></postDetail> -->
-
+    <cards></cards>
+    <navBar></navBar>
 </template>
 
 <style>
@@ -28,13 +19,12 @@ body {
   border-width: 0;
   padding: 0;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  /* color: #2c3e50;
-  margin-top: 60px; */
+
   height: inherit;
   width: inherit;
 }

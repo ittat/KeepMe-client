@@ -26,11 +26,11 @@ export default defineComponent({
                 <icon name="lock" iconType="png" width="2rem" />
 
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="用户名" />
+                    <input type="text" class="form-control shadow-sm" placeholder="用户名" />
                 </div>
 
                 <div class="input-group">
-                    <input type="password" class="form-control" placeholder="密码" />
+                    <input type="password" class="form-control shadow-sm" placeholder="密码" />
                 </div>
 
                 <icon class="pt-4" name="arrow_right" iconType="svg" width="2.5rem" />
@@ -48,5 +48,6 @@ export default defineComponent({
 }
 .input-group{
     margin: .5rem;
+    height: 3rem;
 }
 </style>
