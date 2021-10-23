@@ -1,14 +1,22 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import { provide } from "@vue/runtime-core"
-import LoadCard from "./views//LoadCard.vue"
+import userInfo from "@views/userInfo.vue"
+import LoadCard from "@views/LoadCard.vue"
+import postDetail from "@views/postDetail.vue"
+import logIn from "@views/logIn.vue"
+import newPost from "@views/newPost.vue"
+
 
 
 </script>
 
 <template>
-  <LoadCard></LoadCard>
+  <userInfo></userInfo>
+  <!-- <LoadCard></LoadCard> -->
+  <!-- <logIn></logIn> -->
+  <!-- <newPost></newPost> -->
+<!-- <postDetail></postDetail> -->
+
 </template>
 
 <style>
