@@ -61,7 +61,7 @@ watch(() => route.path, (n, o) => {
                     </div>
                 </div>
 
-                <icon name="favourite" iconType="svg" width="1.5rem" class="mx-0" />
+                <icon name="favourite" iconType="svg" width="1.5rem" class="mx-0 mt-4" />
             </div>
         </template>
         <template v-slot:body>

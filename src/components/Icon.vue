@@ -1,5 +1,5 @@
 <template>
-    <img :src="path" alt="" :style="{width:width}">
+    <img :src="path" alt="" :style="{'width':width,'height':width}">
 </template>
 
 
