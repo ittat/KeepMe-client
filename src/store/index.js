@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 const switchPidtoPath = (pid) => {
   if (pid.includes('system-')) {
-    return pid
+    return '/' + pid
   } else if (pid.includes('user-')) {
     return '/user/' + pid.replace('user-', '')
   } else if (pid.includes('post-')) {
@@ -12,13 +12,13 @@ const switchPidtoPath = (pid) => {
   }
 }
 
-
 export default createStore({
   state: {
-    pids:  ['system-login',
-        'system-load'
-      ],
-    activePid:  0,
+    pids: [
+      'system-login',
+      'system-newpost'
+    ],
+    activePid: 0,
     loadDone: false,
     token: null,
   },
@@ -31,20 +31,19 @@ export default createStore({
     },
     getNextPath: state => {
       let pidName = ''
-      if (state.activePid  >= state.pids.length) {
+      if (state.activePid == state.pids.length - 1) {
         pidName = state.pids[state.pids.length - 1]
-      }else{
+      } else {
         pidName = state.pids[state.activePid + 1]
       }
-      
       return switchPidtoPath(pidName)
 
     },
     getPrevPath: state => {
       let pidName = ''
-      if (state.activePid  >= state.pids.length) {
+      if (state.activePid == 0) {
         pidName = state.pids[0]
-      }else{
+      } else {
         pidName = state.pids[state.activePid - 1]
       }
 
@@ -57,8 +56,13 @@ export default createStore({
   },
   mutations: {
     insortPid(state, pid) {
-      state.pids.splice(state.activePid + 1, 0, pid)
-      state.activePid++
+      if (state.pids.includes(pid)) {
+        state.activePid = state.pids.indexOf(pid)
+        console.log(state.activePid);
+      } else {
+        state.pids.splice(state.activePid + 1, 0, pid)
+        state.activePid++
+      }
     },
     removePid(state, pid) {
       state.pid.splice(pid, 1)

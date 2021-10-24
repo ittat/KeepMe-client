@@ -12,7 +12,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
       "@components": path.resolve(__dirname, "./src/components"),
       "@views": path.resolve(__dirname, "./src/views"),
-      "@http": path.resolve(__dirname, "./src/axios")
+      "@http": path.resolve(__dirname, "./src/axios"),
+      "@utils": path.resolve(__dirname, "./src/utils"),
     },
   }
 })
