@@ -3,7 +3,7 @@ import Card from "../components/Card.vue"
 
 import { defineComponent, provide } from "@vue/runtime-core"
 export default defineComponent({
-    name: "LoadCard",
+    name: "loadCard",
     components: {
         Card
     },

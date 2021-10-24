@@ -27,5 +27,6 @@ body {
 
   height: inherit;
   width: inherit;
+
 }
 </style>

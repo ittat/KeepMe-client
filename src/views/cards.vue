@@ -1,15 +1,21 @@
 <template>
     <div id="warper">
-        <!-- <newPost></newPost> -->
-        <!-- <userInfo></userInfo> -->
-        <!-- <LoadCard></LoadCard> -->
-        <!-- <logIn></logIn> -->
-        <!-- <postDetail></postDetail> -->
+        <router-view></router-view>
     </div>
 </template>
 
 <script setup>
+import { useStore } from "vuex"
+import { useRouter } from "router"
+import { watch, computed } from "@vue/runtime-core";
 
+const store  = useStore()
+console.log(store.state);
+
+
+watch(() => store.state.loadDone, (n,o)=>{
+    console.log(n + '_' + o);
+})
 
 </script>
 
