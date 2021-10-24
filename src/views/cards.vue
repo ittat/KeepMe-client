@@ -5,31 +5,24 @@
 </template>
 
 <script setup>
-import { useStore } from "vuex"
-import { useRouter } from "vue-router"
-import { watch, computed } from "@vue/runtime-core";
-import http from "@http";
-
-
-const store = useStore()
-const router = useRouter()
-
-http.get('feeds/start=0/length=4', {}).then(res => {
-    const feeds = res.data.data;
-    for (let i = 0; i < feeds.length; i++) {
-        store.commit('insortPid', 'post-' + feeds[i].postId)
-    }
-})
-
 
 </script>
 
 <style>
 #warper {
-    background-color: lawngreen;
+    /* background-color: lawngreen; */
     margin-right: 17px;
     height: calc(100vh - 15%);
     margin-top: 14px;
     margin-left: 8px;
+        box-shadow: 
+      0 0px 8px 2px rgba(0, 0, 0, 0.2), 
+      3px 3px 0 0 #f6f6f6, 
+      5px 3px 8px 2px rgba(0, 0, 0, 0.2), 
+      7px 6px 0 0 #f6f6f6, 
+      9px 6px 8px 2px rgba(0, 0, 0, 0.2),
+      10px 9px 0 0 #f6f6f6,
+      15px 9px 8px 2px rgba(0, 0, 0, 0.2)
+    ;
 }
 </style>

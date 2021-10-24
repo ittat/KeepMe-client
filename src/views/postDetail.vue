@@ -1,7 +1,3 @@
-<script >
-
-</script>
-
 <script setup>
 import Card from "@components/Card.vue"
 import userImg from "@components/userImg.vue"

@@ -1,17 +1,26 @@
-<script >
-import Card from "../components/Card.vue"
 
-import { defineComponent, provide } from "@vue/runtime-core"
-export default defineComponent({
-    name: "loadCard",
-    components: {
-        Card
-    },
-    setup() {
-        provide("showheader", false)
-        provide("showfooter", false)
+<script setup>
+import { provide } from "vue"
+import { useStore } from "vuex"
+import { useRouter } from "vue-router"
+import http from "@http"
+import Card from "@components/Card.vue"
+provide("showheader", false)
+provide("showfooter", false)
+const store = useStore()
+const router = useRouter()
+
+//TODO
+//  判断 token 跳转
+http.get('feeds/start=0/length=4', {}).then(res => {
+    const feeds = res.data.data;
+    for (let i = 0; i < feeds.length; i++) {
+        store.commit('insortPid', 'post-' + feeds[i].postId)
     }
+    router.push(store.getters.getActivePath)
 })
+
+
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="main" class="">
     <div class="card card-shadow" :class="{ 'card-full': true }">
       <div v-show="hasHeader" class="card-header text-center">
         <slot name="header"></slot>
@@ -16,16 +16,36 @@
 </template>
 
 <script setup>
-import { computed } from "@vue/reactivity"
-import { defineComponent, reactive, toRefs, inject } from "vue"
+import { inject, watch, computed, ref, onMounted } from "vue"
 
+import { useStore } from "vuex"
 
 const hasHeader = inject("showheader") || false
 const hasFooter = inject("showfooter") || false
 const bodySrcoll = inject("bodysrcoll") || false
+const store = useStore()
+const switchright = ref(false)
+const switchleft = ref(false)
 
 const isfull = computed(() => {
   return !(hasHeader || hasFooter)
+})
+
+
+onMounted(() =>{
+  watch(() => store.state.activePid, (newpid, oldpid) => {
+  console.log('activePid change: ' + oldpid + ' ==> ' + newpid)
+  const cardDom = document.getElementById('main')
+  if (newpid > oldpid) {
+    cardDom.classList.add('switchright')
+  } else {
+    cardDom.classList.add('switchleft')
+  }
+  setTimeout(() => {
+    cardDom.classList.remove('switchright')
+    cardDom.classList.remove('switchleft')
+  }, 300);
+})
 })
 
 </script>
@@ -36,15 +56,54 @@ const isfull = computed(() => {
   border: rgba(213, 213, 213, 0.24);
   border-radius: 0.51rem;
   border-style: solid;
-  /* margin: 1rem; */
   border-width: 0.2rem;
-  /* height: calc(100vh - 20%); */
-  /* height:  inherit; */
   height: 100%;
 }
 
-.card-shadow{
-    box-shadow: 
+.switchright {
+  position: relative;
+  animation: switchright 0.3s ease-in-out;
+}
+.switchleft {
+  position: relative;
+  animation: switchleft 0.3s ease-in-out;
+}
+
+.switchtop {
+  position: relative;
+  animation: switchtop 0.3s ease-in-out;
+}
+
+
+@keyframes switchright {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes switchleft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes switchtop {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.card-shadow {
+  /* box-shadow: 
       0 0px 8px 2px rgba(0, 0, 0, 0.2), 
       3px 3px 0 0 #f6f6f6, 
       5px 3px 8px 2px rgba(0, 0, 0, 0.2), 
@@ -52,7 +111,7 @@ const isfull = computed(() => {
       9px 6px 8px 2px rgba(0, 0, 0, 0.2),
       10px 9px 0 0 #f6f6f6,
       15px 9px 8px 2px rgba(0, 0, 0, 0.2)
-    ;
+    ; */
 }
 
 .card-full {
