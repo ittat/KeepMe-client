@@ -6,14 +6,23 @@
 
 <script setup>
 import { useStore } from "vuex"
-import { useRouter } from "router"
+import { useRouter } from "vue-router"
 import { watch, computed } from "@vue/runtime-core";
-
-const store  = useStore()
-console.log(store.state);
+import http from "@http";
 
 
-watch(() => store.state.loadDone, (n,o)=>{
+const store = useStore()
+const router = useRouter()
+
+http.get('feeds/start=0/length=4', {}, { emulateJSON: true }).then(res => {
+    const feeds = res.data.data;
+    for (let i = 0; i < feeds.length; i++) {
+        store.commit('insortPid', 'post-' + feeds[i].postId)
+    }
+    router.push(store.getters.getActivePath)
+})
+
+watch(() => store.state.loadDone, (n, o) => {
     console.log(n + '_' + o);
 })
 

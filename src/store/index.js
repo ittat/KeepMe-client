@@ -1,51 +1,57 @@
 import { createStore } from 'vuex'
 
+const switchPidtoPath = (pid) => {
+  if (pid.includes('system-')) {
+    return pid
+  } else if (pid.includes('user-')) {
+    return '/user/' + pid.replace('user-', '')
+  } else if (pid.includes('post-')) {
+    return '/post/' + pid.replace('post-', '')
+  } else {
+    return '/'
+  }
+}
+
+
 export default createStore({
   state: {
     pids:  ['system-login',
         'system-load'
       ],
     activePid:  0,
-    loadDone: false
+    loadDone: false,
+    token: null,
   },
   getters: {
+    getActivePath: state => {
+      return switchPidtoPath(state.pids[state.activePid])
+    },
     getActivePid: state => {
       return state.activePid
     },
     getNextPath: state => {
-      const pidName = ''
+      let pidName = ''
       if (state.activePid  >= state.pids.length) {
         pidName = state.pids[state.pids.length - 1]
       }else{
         pidName = state.pids[state.activePid + 1]
       }
-      if (pidName.includes('system-')) {
-        return pidName
-      } else if (pidName.includes('user-')) {
-        return '/user/' + pidName.replace('user-', '')
-      } else if (pidName.includes('post-')) {
-        return '/post/' + pidName.replace('post-', '')
-      } else {
-        return '/'
-      }
+      
+      return switchPidtoPath(pidName)
+
     },
     getPrevPath: state => {
-      const pidName = ''
+      let pidName = ''
       if (state.activePid  >= state.pids.length) {
         pidName = state.pids[0]
       }else{
         pidName = state.pids[state.activePid - 1]
       }
 
-      if (pidName.includes('system-')) {
-        return pidName
-      } else if (pidName.includes('user-')) {
-        return '/user/' + pidName.replace('user-', '')
-      } else if (pidName.includes('post-')) {
-        return '/post/' + pidName.replace('post-', '')
-      } else {
-        return '/'
-      }
+      return switchPidtoPath(pidName)
+    },
+    getToken: state => {
+      return state.token
     }
 
   },
@@ -63,6 +69,9 @@ export default createStore({
       } else {
         state.activePid = 0
       }
+    },
+    setToken(state, token) {
+      state.token = token
     }
   },
   actions: {

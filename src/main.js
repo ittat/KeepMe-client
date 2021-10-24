@@ -10,11 +10,12 @@ import App from './App.vue'
 import './registerServiceWorker'
 import store from './store'
 import router from './router'
+import http from './axios'
+import VueAxios from 'vue-axios'
 
 createApp(App)
 .use(store)
+.use(VueAxios, http)
 .use(router)
 .component('icon', Icon)
 .mount('#app')
-
-console.log(store.state.pids);

@@ -5,13 +5,7 @@ function resolve(dir) {
 }
 
 module.exports = {
-  chainWebpack: config => {
-
-    // 为src下文件配别名，不使用相对路径
-    config.resolve.alias
-      .set('@', resolve('src'))
-  },
-  pwa: {
+    pwa: {
     workboxPluginMode: 'GenerateSW', // 也可以定义为‘InjectManifest’模式。但是需自己写SW.js文件进行配置
     workboxOptions: {
       importWorkboxFrom: 'cdn', //从''cdn"导入workbox,也可以‘local’
