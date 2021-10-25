@@ -1,21 +1,40 @@
-<script >
+<script setup>
 import Card from "@components/Card.vue"
 import userImg from "@components/userImg.vue"
+import {useRoute } from "vue-router"
+import { provide,onMounted,reactive } from "@vue/runtime-core"
+import http from "@http"
 
-import { defineComponent, provide } from "@vue/runtime-core"
-export default defineComponent({
-    name: "userInfo",
-    components: {
-        Card,
-        userImg
-    },
-    setup() {
-        provide("showheader", true)
-        provide("showfooter", false)
-        provide("bodysrcoll", true)
-    }
+provide("showheader", true)
+provide("showfooter", false)
+provide("bodysrcoll", true)
+
+const route = useRoute()
+
+
+ const userData = reactive({
+    username: "KeepMe",
+    desc: "I love KeepMe ...",
+    userImg: "https://avatars2.githubusercontent.com/u/8186664?s=460&v=4"
 })
+const updateUserInfo = async () => {
+    const res = await http.get(`/user/${route.params.id}`)
+    console.log(res.data)
+    if (res.data.code == 105) {
+        userData.username = res.data.data.username
+        userData.desc = res.data.data.desc
+    }
+}
+
+onMounted(async () => {
+    console.log("mounted")
+    updateUserInfo()
+})
+
+
 </script>
+
+
 
 <template>
     <Card>
@@ -24,7 +43,7 @@ export default defineComponent({
                 <user-img class="mt-4 mb-1" name="head-funingdady" color="#000" size="3" />
             </div>
 
-            <span class="fw-lighter fs-6 placeholder">dfsdfdsf</span>
+            <span class="fw-lighter fs-6">{{userData.username}}</span>
             <hr />
             <div class="mb-2 d-flex flex-row align-items-center justify-content-center">
                 <icon name="at" iconType="svg" width="1.5rem" />

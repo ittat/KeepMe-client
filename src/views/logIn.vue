@@ -23,7 +23,7 @@ export default defineComponent({
                     <p class="h1"> Keep Me</p>  
                 </div>
 
-                <icon name="lock" iconType="png" width="2rem" />
+                <icon name="lock" iconType="png" width="2.5rem" />
 
                 <div class="input-group">
                     <input type="text" class="form-control shadow-sm" placeholder="用户名" />
@@ -33,7 +33,7 @@ export default defineComponent({
                     <input type="password" class="form-control shadow-sm" placeholder="密码" />
                 </div>
 
-                <icon class="pt-4" name="arrow_right" iconType="svg" width="2.5rem" />
+                <icon class="pt-4" name="arrow_right" iconType="svg" width="4rem" />
             </div>
         </template>
     </Card>
