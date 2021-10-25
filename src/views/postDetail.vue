@@ -3,8 +3,8 @@ import Card from "@components/Card.vue"
 import userImg from "@components/userImg.vue"
 import { useRoute } from "vue-router"
 import http from "@http"
-import dectime  from "@utils/utils.js"
-import { onMounted, provide, reactive} from "vue"
+import dectime from "@utils/utils.js"
+import { onMounted, provide, reactive } from "vue"
 import { useStore } from "vuex"
 
 const store = useStore()
@@ -35,7 +35,7 @@ const postData = reactive({
 
 const route = useRoute()
 
-const updatePost = async () =>{
+const updatePost = async () => {
     const res = await http.get(`/post/${props.postId}`)
     console.log(res.data)
     postData.userId = res.data.data.userId
@@ -50,8 +50,8 @@ onMounted(async () => {
     updatePost()
 })
 
-const toUserInfo = (e) =>{
-store.commit('insortPid',  `user-${postData.userId}`)
+const toUserInfo = (e) => {
+    store.commit('insortPid', `user-${postData.userId}`)
 }
 
 
@@ -64,7 +64,13 @@ store.commit('insortPid',  `user-${postData.userId}`)
         <template v-slot:header>
             <div class="w-100 d-flex justify-content-between">
                 <div class="d-flex flex-row text-start align-items-center">
-                    <user-img @click="toUserInfo" class="mt-1 mb-1" :imgsrc="postData.userImg" color="#000" size="3" />
+                    <user-img
+                        @click="toUserInfo"
+                        class="mt-1 mb-1"
+                        :imgsrc="postData.userImg"
+                        color="#000"
+                        size="3"
+                    />
                     <div class="d-flex flex-column mx-3">
                         <span class="fw-bolder fs-4">{{ postData.username }}</span>
                         <span class="fw-lighter fs-6">{{ postData.postDate }}</span>

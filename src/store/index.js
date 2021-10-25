@@ -103,6 +103,10 @@ export default createStore({
     },
     setUsername(state, username) {
       state.username = username
+    },
+    closeActivePid(state) {
+      state.pids.splice(state.activePid, 1)
+      state.activePid--
     }
   },
   actions: {

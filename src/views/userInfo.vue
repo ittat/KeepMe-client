@@ -4,12 +4,14 @@ import userImg from "@components/userImg.vue"
 import { useRoute } from "vue-router"
 import { provide, onMounted, reactive } from "@vue/runtime-core"
 import http from "@http"
+import { useStore } from "vuex"
 
 provide("showheader", true)
 provide("showfooter", false)
 provide("bodysrcoll", true)
 
 const route = useRoute()
+const store = useStore()
 
 const props = defineProps({
     userId: {
@@ -53,10 +55,11 @@ onMounted(async () => {
             </div>
             <hr />
             <div class="mb-2 d-flex flex-row align-items-center justify-content-center">
-                <icon name="at" iconType="svg" width="1.5rem" />
+                <icon v-if="userData.username != store.state.username" name="at" iconType="svg" width="1.5rem" />
                 <icon name="posts" iconType="svg" width="1.5rem" />
                 <!-- todo -->
-                <icon name="follow" iconType="svg" width="1.5rem" />
+                <icon v-if="userData.username == store.state.username" name="friend" iconType="svg" width="1.5rem" />
+                <icon v-else name="follow" iconType="svg" width="1.5rem" />
             </div>
         </template>
         <template v-slot:body>

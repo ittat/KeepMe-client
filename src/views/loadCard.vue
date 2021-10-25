@@ -12,7 +12,7 @@ const router = useRouter()
 
 //TODO
 //  判断 token 跳转
-http.get('feeds/start=0/length=4', {}).then(res => {
+http.get('feeds/start=0/length=10', {}).then(res => {
     const feeds = res.data.data;
     console.log(feeds);
     for (let i = 0; i < feeds.length; i++) {

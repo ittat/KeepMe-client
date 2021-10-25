@@ -1,7 +1,13 @@
 <template>
   <div id="main" class="mx-3 switchtop" style="width:100%">
     <div class="card card-shadow" :class="{ 'card-full': true }">
-      <div v-show="hasHeader" class="card-header text-center">
+      <div
+        v-show="hasHeader"
+        class="card-header text-center"
+        @touchstart="onFeedsTouchDown"
+        @touchmove="onFeedsTouchMove"
+        @touchend="onFeedsTouchEnd"
+      >
         <slot name="header"></slot>
       </div>
 
@@ -32,21 +38,47 @@ const isfull = computed(() => {
 })
 
 
-onMounted(() =>{
+onMounted(() => {
   watch(() => store.state.activePid, (newpid, oldpid) => {
-  console.log('activePid change: ' + oldpid + ' ==> ' + newpid)
-  const cardDom = document.getElementById('main')
-  if (newpid > oldpid) {
-    cardDom.classList.add('switchright')
-  } else {
-    cardDom.classList.add('switchleft')
-  }
-  setTimeout(() => {
-    cardDom.classList.remove('switchright')
-    cardDom.classList.remove('switchleft')
-  }, 300);
+    console.log('activePid change: ' + oldpid + ' ==> ' + newpid)
+    const cardDom = document.getElementById('main')
+    if (newpid > oldpid) {
+      cardDom.classList.add('switchright')
+    } else {
+      cardDom.classList.add('switchleft')
+    }
+    setTimeout(() => {
+      cardDom.classList.remove('switchright')
+      cardDom.classList.remove('switchleft')
+    }, 300);
+  })
 })
-})
+
+
+let startY = 0
+let fingerTouch = false
+
+
+const onFeedsTouchDown = (e) => {
+  startY = e.touches[0].clientY;
+  fingerTouch = false;
+}
+
+const onFeedsTouchMove = (e) => {
+    if (Math.abs(startY - e.touches[0].clientY) > 45) {
+        fingerTouch = true;
+    }
+}
+
+const onFeedsTouchEnd = (e) => {
+  console.log(fingerTouch);
+  if (fingerTouch) {
+    fingerTouch = false;
+      store.commit('closeActivePid')
+    }
+}
+
+
 
 </script>
 
@@ -73,7 +105,6 @@ onMounted(() =>{
   position: relative;
   animation: switchtop 0.3s ease-in-out;
 }
-
 
 @keyframes switchright {
   0% {
@@ -124,6 +155,6 @@ onMounted(() =>{
 
 .card-footer {
   /* height: inherit; */
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 </style>

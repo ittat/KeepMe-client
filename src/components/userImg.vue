@@ -2,7 +2,8 @@
     <div class="userImg">
         <img v-if="props.imgsrc != null" :src="props.imgsrc" style="width: inherit;
 border-radius: inherit;" />
-        <icon v-else :name="name" iconType="png" :width="width" />
+        <icon v-else :name="name" iconType="png" style="width: inherit;
+border-radius: inherit;" />
     </div>
 </template>
 
@@ -43,8 +44,14 @@ const width = computed(() => {
     width: v-bind(size);
     height: v-bind(size);
     border:v-bind(color);
-    border-width: 5px;
+    border-width: 3px;
     border-radius: 50%;
     border-style: solid;
+    margin: 0;
+    padding: 0;
+}
+
+img{
+    padding: 3px;
 }
 </style>

@@ -36,7 +36,7 @@ const login = async () => {
             userInfo.isMissPassd = false
             userInfo.isMissUser = false
             // OK go back to the previous page
-            store.commit('toPrevPid')
+            store.commit('closeActivePid')
         }else{
             userInfo.isMissPassd = true
             userInfo.isMissUser = true
@@ -99,7 +99,4 @@ const login = async () => {
     height: 3rem;
 }
 
-.active:active {
-    transform: translate(3px, 3px);
-}
 </style>

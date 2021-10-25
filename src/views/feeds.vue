@@ -36,7 +36,7 @@ const store = useStore()
 
 import http from "@http"
 import { onMounted, watch } from "@vue/runtime-core"
-http.get('feeds/start=0/length=3', {}).then(res => {
+http.get('feeds/start=0/length=10', {}).then(res => {
     const feeds = res.data.data;
     for (let i = 0; i < feeds.length; i++) {
         store.commit('insortPid', 'post-' + feeds[i].postId)
