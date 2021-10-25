@@ -9,10 +9,6 @@ import userInfo from "@views/userInfo.vue"
 
 const routes = [
     {
-        path: "/",
-        component: loadCard
-    },
-    {
         path: "/system-login",
         component: logIn
     },
@@ -21,7 +17,7 @@ const routes = [
         component: newPost
     },
     {
-        path: "/post/:id(\\d+)",
+        path: "/feeds",
         component: postDetail
     },
     {

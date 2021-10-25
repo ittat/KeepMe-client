@@ -1,5 +1,14 @@
 import { createStore } from 'vuex'
 
+
+
+import loadCard from "@views/loadCard.vue"
+import logIn from "@views/logIn.vue"
+import newPost from "@views/newPost.vue"
+import postDetail from "@views/postDetail.vue"
+import userInfo from "@views/userInfo.vue"
+
+
 const switchPidtoPath = (pid) => {
   if (pid.includes('system-')) {
     return '/' + pid
@@ -14,11 +23,8 @@ const switchPidtoPath = (pid) => {
 
 export default createStore({
   state: {
-    pids: [
-      'system-login',
-      'system-newpost'
-    ],
-    activePid: 0,
+    pids: [],
+    activePid: -1,
     loadDone: false,
     token: null,
   },
@@ -76,6 +82,19 @@ export default createStore({
     },
     setToken(state, token) {
       state.token = token
+    },
+    setActivePid(state, pid) {
+      state.activePid = pid
+    },
+    toNextPid(state) {
+      if (state.activePid != state.pids.length - 1) {
+        state.activePid++
+      }
+    },
+    toPrevPid(state) {
+      if (state.activePid != 0) {
+        state.activePid--
+      }
     }
   },
   actions: {

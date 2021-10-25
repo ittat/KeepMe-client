@@ -1,8 +1,8 @@
 <script setup>
 import Card from "@components/Card.vue"
 import userImg from "@components/userImg.vue"
-import {useRoute } from "vue-router"
-import { provide,onMounted,reactive } from "@vue/runtime-core"
+import { useRoute } from "vue-router"
+import { provide, onMounted, reactive } from "@vue/runtime-core"
 import http from "@http"
 
 provide("showheader", true)
@@ -11,14 +11,20 @@ provide("bodysrcoll", true)
 
 const route = useRoute()
 
+const props = defineProps({
+    userId: {
+        type: String,
+        required: true
+    }
+})
 
- const userData = reactive({
+const userData = reactive({
     username: "KeepMe",
     desc: "I love KeepMe ...",
     userImg: "https://avatars2.githubusercontent.com/u/8186664?s=460&v=4"
 })
 const updateUserInfo = async () => {
-    const res = await http.get(`/user/${route.params.id}`)
+    const res = await http.get(`/user/${props.userId}`)
     console.log(res.data)
     if (res.data.code == 105) {
         userData.username = res.data.data.username
@@ -43,7 +49,7 @@ onMounted(async () => {
                 <user-img class="mt-4 mb-1" name="head-funingdady" color="#000" size="3" />
             </div>
 
-            <span class="fw-lighter fs-6">{{userData.username}}</span>
+            <span class="fw-lighter fs-6">{{ userData.username }}</span>
             <hr />
             <div class="mb-2 d-flex flex-row align-items-center justify-content-center">
                 <icon name="at" iconType="svg" width="1.5rem" />

@@ -1,16 +1,38 @@
 <template>
     <div class="nav-div d-flex flex-row justify-content-center align-items-center">
-        <div class="nav-bar d-flex flex-row justify-content-center">
+        <div class="nav-bar d-flex flex-row justify-content-center align-items-center">
             <icon
                 @click="toPrevCard"
                 class="mx-3 my-1"
                 id="navleft"
                 name="nav-arrow-right"
                 iconType="svg"
+                width="1.6rem"
+            ></icon>
+            <icon @click="toLogInCard" class="mx-3 my-1" name="user" iconType="svg" width="1.6rem"></icon>
+
+            <icon
+                @click="toNewPostCard"
+                class="mx-3 my-1"
+                name="addpost"
+                iconType="svg"
                 width="2rem"
             ></icon>
-            <div class="line-column"></div>
-            <icon @click="toNextCard" class="mx-3 my-1" name="nav-arrow-right" iconType="svg" width="2rem"></icon>
+
+            <icon
+                @click="toReflashFeeds"
+                class="mx-3 my-1"
+                name="reflash"
+                iconType="svg"
+                width="1.6rem"
+            ></icon>
+            <icon
+                @click="toNextCard"
+                class="mx-3 my-1"
+                name="nav-arrow-right"
+                iconType="svg"
+                width="1.6rem"
+            ></icon>
         </div>
     </div>
 </template>
@@ -25,17 +47,24 @@ const store = useStore()
 const router = useRouter()
 
 const toPrevCard = () => {
-    const path = store.getters.getPrevPath
-    console.log(path)
-    router.push(path)
+    store.commit('toPrevPid')
 }
 
 const toNextCard = () => {
-    const path = store.getters.getNextPath
-    console.log(path)
-    router.push(path)
+    store.commit('toNextPid')
 }
 
+const toNewPostCard = () => {
+    store.commit('insortPid', 'system-newpost')
+}
+
+const toLogInCard = () => {
+    store.commit('insortPid', 'system-login')
+}
+
+const toReflashFeeds = () => {
+    store.commit('insortPid', 'system-load')
+}
 
 </script>
 
@@ -51,7 +80,8 @@ const toNextCard = () => {
     border-radius: 20px;
     border-width: 2px;
     border: rgb(197, 197, 197) solid;
-    box-shadow: 0 0 9px 1px darkgray;
+    box-shadow: 0 0 4px 1px darkgray;
+    background-color: aliceblue;
 }
 
 #navleft {
@@ -65,5 +95,10 @@ const toNextCard = () => {
     margin-top: 4px;
     margin-bottom: 4px;
     padding: 0;
+}
+
+img:active{
+    /* background-color: rgb(180, 180, 209); */
+    transform: translate(2px, 2px);
 }
 </style>

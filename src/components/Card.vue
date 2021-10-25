@@ -1,5 +1,5 @@
 <template>
-  <div id="main" class="">
+  <div id="main" class="mx-3 switchtop" style="width:100%">
     <div class="card card-shadow" :class="{ 'card-full': true }">
       <div v-show="hasHeader" class="card-header text-center">
         <slot name="header"></slot>

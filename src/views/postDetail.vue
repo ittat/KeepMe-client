@@ -10,6 +10,13 @@ provide("showheader", true)
 provide("showfooter", false)
 provide("bodysrcoll", true)
 
+const props = defineProps({
+    postId: {
+        type: String,
+        required: true
+    }
+})
+
 const postData = reactive({
     username: "KeepMe",
     userimg: null,
@@ -24,7 +31,7 @@ const postData = reactive({
 const route = useRoute()
 
 const updatePost = async () =>{
-    const res = await http.get(`/post/${route.params.id}`)
+    const res = await http.get(`/post/${props.postId}`)
     console.log(res.data)
     postData.username = res.data.data.username
     postData.postContext = res.data.data.context
@@ -36,13 +43,13 @@ onMounted(async () => {
     updatePost()
 })
 
-watch(() => route.path, (n, o) => {
-    if (n.includes("/post/") && n !== o) {
-        console.log('post: '+ n + ' ==> ' + o);
-        updatePost()
-    }
+// watch(() => route.path, (n, o) => {
+//     if (n.includes("/post/") && n !== o) {
+//         console.log('post: '+ n + ' ==> ' + o);
+//         updatePost()
+//     }
         
-})
+// })
 
 
 </script>
