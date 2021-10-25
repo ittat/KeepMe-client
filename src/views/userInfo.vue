@@ -45,11 +45,11 @@ onMounted(async () => {
 <template>
     <Card>
         <template v-slot:header>
-            <div class="w-100 d-flex justify-content-center">
-                <user-img class="mt-4 mb-1" name="head-funingdady" color="#000" size="3" />
+            <div class="w-100 d-flex flex-column align-items-center justify-content-center">
+                <user-img class="mt-4 mb-1" :imgsrc="userData.userImg" color="#000" size="3" />
+                <span class="fw-bolder fs-1">{{ userData.username }}</span>
+                <span class="fw-lighter fs-6">{{ userData.desc }}</span>
             </div>
-
-            <span class="fw-lighter fs-6">{{ userData.username }}</span>
             <hr />
             <div class="mb-2 d-flex flex-row align-items-center justify-content-center">
                 <icon name="at" iconType="svg" width="1.5rem" />
@@ -60,24 +60,6 @@ onMounted(async () => {
         </template>
         <template v-slot:body>
             <div id="infos" class="d-flex flex-column align-items-start">
-                <i class="bi bi-info fs-6">Infos:</i>
-                <div class="d-flex flex-column align-items-start mx-4">
-                    <span class>dfksdkjfsdkfjkdslfjdsl</span>
-                    <span class>dfksdkjdsl</span>
-                    <span class>dfsdkfjkdslfjdsl</span>
-                    <span class>dfksdkjfsdkfjkdslfjdsl</span>
-                </div>
-
-                <hr />
-                <i class="bi bi-info fs-6">Infos:</i>
-                <div class="d-flex flex-column align-items-start mx-4">
-                    <span class>dfksdkjfsdkfjkdslfjdsl</span>
-                    <span class>dfksdkjdsl</span>
-                    <span class>dfsdkfjkdslfjdsl</span>
-                    <span class>dfksdkjfsdkfjkdslfjdsl</span>
-                </div>
-
-                <hr />
                 <i class="bi bi-info fs-6">Infos:</i>
                 <div class="d-flex flex-column align-items-start mx-4">
                     <span class>dfksdkjfsdkfjkdslfjdsl</span>

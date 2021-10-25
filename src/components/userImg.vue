@@ -1,6 +1,8 @@
 <template>
     <div class="userImg">
-        <icon :name="name" iconType="png" :width="width" />
+        <img v-if="props.imgsrc != null" :src="props.imgsrc" style="width: inherit;
+border-radius: inherit;" />
+        <icon v-else :name="name" iconType="png" :width="width" />
     </div>
 </template>
 
@@ -10,7 +12,7 @@ import { computed } from "@vue/reactivity"
 const props = defineProps({
     name: {
         type: String,
-        requred: true
+        default: "head-funingdady"
     },
     size: {
         type: String,
@@ -19,6 +21,10 @@ const props = defineProps({
     color: {
         type: String,
         default: "#9f9f74"
+    },
+    imgsrc:{
+        type: String,
+        default: null
     }
 })
 

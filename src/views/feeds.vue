@@ -43,6 +43,8 @@ http.get('feeds/start=0/length=3', {}).then(res => {
     }
 })
 
+store.commit('insortPid', 'user-1')
+
 // 卡片滚动
 let startX = 0 // touch event 的初始 x 坐标
 let cardCount = store.state.pids.length // 卡片数量
