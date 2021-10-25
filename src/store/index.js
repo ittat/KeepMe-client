@@ -27,6 +27,8 @@ export default createStore({
     activePid: -1,
     loadDone: false,
     token: null,
+    username: null,
+    userId: null,
   },
   getters: {
     getActivePath: state => {
@@ -95,6 +97,12 @@ export default createStore({
       if (state.activePid != 0) {
         state.activePid--
       }
+    },
+    setUserId(state, userId) {
+      state.userId = userId
+    },
+    setUsername(state, username) {
+      state.username = username
     }
   },
   actions: {

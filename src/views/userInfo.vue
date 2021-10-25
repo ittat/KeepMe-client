@@ -29,6 +29,7 @@ const updateUserInfo = async () => {
     if (res.data.code == 105) {
         userData.username = res.data.data.username
         userData.desc = res.data.data.desc
+        userData.userImg = res.data.data.userImg
     }
 }
 

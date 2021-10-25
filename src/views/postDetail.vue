@@ -4,7 +4,11 @@ import userImg from "@components/userImg.vue"
 import { useRoute } from "vue-router"
 import http from "@http"
 import dectime  from "@utils/utils.js"
-import { onMounted, provide, reactive,watch } from "@vue/runtime-core"
+import { onMounted, provide, reactive} from "vue"
+import { useStore } from "vuex"
+
+const store = useStore()
+
 
 provide("showheader", true)
 provide("showfooter", false)
@@ -18,8 +22,9 @@ const props = defineProps({
 })
 
 const postData = reactive({
+    userId: "",
     username: "KeepMe",
-    userimg: null,
+    userImg: null,
     postDate: "1 days ago",
     postContext: "I love KeepMe ...",
     postResoure: {
@@ -33,9 +38,11 @@ const route = useRoute()
 const updatePost = async () =>{
     const res = await http.get(`/post/${props.postId}`)
     console.log(res.data)
+    postData.userId = res.data.data.userId
     postData.username = res.data.data.username
     postData.postContext = res.data.data.context
     postData.postDate = dectime(res.data.data.date) + ' ago'
+    postData.userImg = res.data.data.userImg
 }
 
 onMounted(async () => {
@@ -43,13 +50,9 @@ onMounted(async () => {
     updatePost()
 })
 
-// watch(() => route.path, (n, o) => {
-//     if (n.includes("/post/") && n !== o) {
-//         console.log('post: '+ n + ' ==> ' + o);
-//         updatePost()
-//     }
-        
-// })
+const toUserInfo = (e) =>{
+store.commit('insortPid',  `user-${postData.userId}`)
+}
 
 
 </script>
@@ -61,7 +64,7 @@ onMounted(async () => {
         <template v-slot:header>
             <div class="w-100 d-flex justify-content-between">
                 <div class="d-flex flex-row text-start align-items-center">
-                    <user-img class="mt-1 mb-1" name="head-funingdady" color="#000" size="3" />
+                    <user-img @click="toUserInfo" class="mt-1 mb-1" :imgsrc="postData.userImg" color="#000" size="3" />
                     <div class="d-flex flex-column mx-3">
                         <span class="fw-bolder fs-4">{{ postData.username }}</span>
                         <span class="fw-lighter fs-6">{{ postData.postDate }}</span>

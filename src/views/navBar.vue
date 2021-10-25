@@ -9,8 +9,13 @@
                 iconType="svg"
                 width="1.6rem"
             ></icon>
-            <icon @click="toLogInCard" class="mx-3 my-1" name="user" iconType="svg" width="1.6rem"></icon>
-
+            <icon
+                @click="toUserInfoCard"
+                class="mx-3 my-1"
+                name="user"
+                iconType="svg"
+                width="1.6rem"
+            ></icon>
             <icon
                 @click="toNewPostCard"
                 class="mx-3 my-1"
@@ -55,11 +60,19 @@ const toNextCard = () => {
 }
 
 const toNewPostCard = () => {
-    store.commit('insortPid', 'system-newpost')
+    if (store.state.token) {
+        store.commit('insortPid', 'system-newpost')
+    } else {
+        store.commit('insortPid', `system-login`)
+    }
 }
 
-const toLogInCard = () => {
-    store.commit('insortPid', 'system-login')
+const toUserInfoCard = () => {
+    if (store.state.token) {
+        store.commit('insortPid', `user-${store.state.userId}`)
+    } else {
+        store.commit('insortPid', `system-login`)
+    }
 }
 
 const toReflashFeeds = () => {
@@ -97,7 +110,7 @@ const toReflashFeeds = () => {
     padding: 0;
 }
 
-img:active{
+img:active {
     /* background-color: rgb(180, 180, 209); */
     transform: translate(2px, 2px);
 }

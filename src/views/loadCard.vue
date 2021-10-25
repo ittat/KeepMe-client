@@ -14,10 +14,10 @@ const router = useRouter()
 //  判断 token 跳转
 http.get('feeds/start=0/length=4', {}).then(res => {
     const feeds = res.data.data;
+    console.log(feeds);
     for (let i = 0; i < feeds.length; i++) {
         store.commit('insortPid', 'post-' + feeds[i].postId)
     }
-    router.push(store.getters.getActivePath)
 })
 
 
