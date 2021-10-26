@@ -6,35 +6,32 @@ npm i
 npm run dev
 ```
 
-
 ### 技术栈
 
 前端：
-    - vue3
-    - vite
-    - bootstrap
-    - vuex
-    - router
-    - axios
+- vue3
+- vite
+- bootstrap
+- vuex
+- router
+- axios
 
-后段：
-    - nodejs
-    - express
-    - mysql
+后端：
+- nodejs
+- express
+- mysql
 
 
-#### 前端UI
+### UI 截图
 
-<img src="/assert/Screenshot_20211026-133749.png" alt="截图1" title="截图1" style="width:100px">
-<img src="/assert/Screenshot_20211026-133801.png" alt="截图1" title="截图1" style="width:100px">
-<img src="/assert/Screenshot_20211026-134405.png" alt="截图1" title="截图1" style="width:100px">
-<img src="/assert/Screenshot_20211026-134653.png" alt="截图1" title="截图1" style="width:100px">
+<div style="display:flex;">
+<img src="/assert/Screenshot_20211026-133749.png" alt="截图1" title="截图1" style="width:300px">
+<img src="/assert/Screenshot_20211026-133801.png" alt="截图2" title="截图2" style="width:300px">
+<img src="/assert/Screenshot_20211026-134405.png" alt="截图3" title="截图3" style="width:300px">
+<img src="/assert/Screenshot_20211026-134653.png" alt="截图4" title="截图4" style="width:300px">
+</div>
 
-@video[录屏](assert/MP4_20211026_142859.mp4)
-
-#### 代码布局
-
-前段
+### 源码布局
 ```
 Readme.md
 assert
@@ -73,9 +70,8 @@ src
 vite.config.js
 vue.config.js
 ```
-#### 后段接口
+### 后端
 
-后段源码：
-[接口文档](https://www.notion.so/5254027326a04eafa05a100402c35386)
-
-#### 数据库 sql文件
+后端源码：https://github.com/ittat/KeepMe-Nodejs 
+接口文档: https://www.notion.so/5254027326a04eafa05a100402c35386 
+数据库sql文件: https://github.com/ittat/KeepMe-Nodejs/blob/dev/db.sql 
