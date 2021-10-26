@@ -55,21 +55,32 @@ onMounted(async () => {
             </div>
             <hr />
             <div class="mb-2 d-flex flex-row align-items-center justify-content-center">
-                <icon v-if="userData.username != store.state.username" name="at" iconType="svg" width="1.5rem" />
+                <icon
+                    v-if="userData.username != store.state.username"
+                    name="at"
+                    iconType="svg"
+                    width="1.5rem"
+                />
                 <icon name="posts" iconType="svg" width="1.5rem" />
                 <!-- todo -->
-                <icon v-if="userData.username == store.state.username" name="friend" iconType="svg" width="1.5rem" />
+                <icon
+                    v-if="userData.username == store.state.username"
+                    name="friend"
+                    iconType="svg"
+                    width="1.5rem"
+                />
                 <icon v-else name="follow" iconType="svg" width="1.5rem" />
             </div>
         </template>
         <template v-slot:body>
             <div id="infos" class="d-flex flex-column align-items-start">
                 <i class="bi bi-info fs-6">Infos:</i>
-                <div class="d-flex flex-column align-items-start mx-4">
-                    <span class>dfksdkjfsdkfjkdslfjdsl</span>
-                    <span class>dfksdkjdsl</span>
-                    <span class>dfsdkfjkdslfjdsl</span>
-                    <span class>dfksdkjfsdkfjkdslfjdsl</span>
+                <!-- todo -->
+                <div class="d-flex flex-column align-items-start mx-4 ">
+                    <span class>性别： 男</span>
+                    <span class>地区： 快乐星球 A302</span>
+                    <span class>签名：</span>
+                    <span class>普普通通测试员</span>
                 </div>
             </div>
         </template>

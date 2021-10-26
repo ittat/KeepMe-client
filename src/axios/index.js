@@ -6,8 +6,8 @@ import axios from 'axios'
 import store from "@/store";
 
 
+axios.defaults.baseURL = 'http://192.168.42.7:3001'
 // axios.defaults.baseURL = 'http://localhost:3001'
-axios.defaults.baseURL = 'http://localhost:3001'
 
 axios.defaults.timeout = 10000 // 请求超时设置
 axios.defaults.withCredentials = false // 表示跨域请求时是否需要使用凭证,默认否

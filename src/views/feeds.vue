@@ -13,8 +13,8 @@
                 class="d-inline-flex"
                 style="width:100vw"
             >
-                <postDetail v-if="pid.includes('post-')" :postId="pid.replace('post-', '')" ></postDetail>
-                <userInfo v-else-if="pid.includes('user-')" :userId="pid.replace('user-', '')" ></userInfo>
+                <postDetail v-if="pid.includes('post-')" :postId="pid.replace('post-', '')"></postDetail>
+                <userInfo v-else-if="pid.includes('user-')" :userId="pid.replace('user-', '')"></userInfo>
                 <newPost v-else-if="pid.includes('system-newpost')"></newPost>
                 <logIn v-else-if="pid.includes('system-login')"></logIn>
                 <loadCard v-else></loadCard>
@@ -34,7 +34,7 @@ import { useStore } from "vuex"
 import http from "@http"
 import { onMounted, watch } from "@vue/runtime-core"
 import { bind, clear } from 'size-sensor';
- 
+
 
 
 const store = useStore()
@@ -48,7 +48,7 @@ let fingerTouch = false // 是否为滑动
 // 动态更新卡片数量
 // Notes: 只能监听store的简单类型变量 activePid
 // 因为复杂类型是指针存放
-watch(() => store.state.activePid, (New,Old) => {
+watch(() => store.state.activePid, (New, Old) => {
     cardCount = store.state.pids.length
     // animate(-activeCard * (100 / cardCount))
     activeCard = New
@@ -58,11 +58,14 @@ watch(() => store.state.activePid, (New,Old) => {
 
 
 const animate = (direct) => {
-    if (fingerTouch) {
-        document.getElementById('cards').style = "transform: translateX(" + direct + "%);"
-    } else {
-        document.getElementById('cards').style = "transform: translateX(" + direct + "%);transition: transform 0.3s ease-in-out;";
-    }
+    requestAnimationFrame(() => {
+        if (fingerTouch) {
+            document.getElementById('cards').style = "transform: translateX(" + direct + "%);"
+        } else {
+            document.getElementById('cards').style = "transform: translateX(" + direct + "%);transition: transform 0.3s ease-in-out;";
+        }
+    })
+
 }
 
 const onFeedsTouchDown = (e) => {
@@ -98,12 +101,12 @@ const onFeedsTouchEnd = (e) => {
 }
 
 
-onMounted(()=>{
-    
+onMounted(() => {
+
     // bind the event on element, will get the `unbind` function
-    const unbindCards = bind(document.getElementById("cards") , element => {
-    cardCount = store.state.pids.length
-    animate(-store.state.activePid * (100 / cardCount))
+    const unbindCards = bind(document.getElementById("cards"), element => {
+        cardCount = store.state.pids.length
+        animate(-store.state.activePid * (100 / cardCount))
     });
 })
 
