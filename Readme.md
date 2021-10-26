@@ -25,6 +25,10 @@ npm run dev
 ### UI 截图
 
 <div style="display:flex;">
+<img src="/assert/MP4_20211026_142859.gif" alt="截图1" title="截图1" style="width:600px">
+</div>
+<hr />
+<div style="display:flex;">
 <img src="/assert/Screenshot_20211026-133749.png" alt="截图1" title="截图1" style="width:300px">
 <img src="/assert/Screenshot_20211026-133801.png" alt="截图2" title="截图2" style="width:300px">
 <img src="/assert/Screenshot_20211026-134405.png" alt="截图3" title="截图3" style="width:300px">
@@ -70,8 +74,12 @@ src
 vite.config.js
 vue.config.js
 ```
+<hr />
+
 ### 后端
 
 后端源码：https://github.com/ittat/KeepMe-Nodejs 
+
 接口文档: https://www.notion.so/5254027326a04eafa05a100402c35386 
+
 数据库sql文件: https://github.com/ittat/KeepMe-Nodejs/blob/dev/db.sql 
