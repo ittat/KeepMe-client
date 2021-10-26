@@ -61,22 +61,22 @@ const toNextCard = () => {
 
 const toNewPostCard = () => {
     if (store.state.token) {
-        store.commit('insortPid', 'system-newpost')
+        store.commit('toPidName', 'system-newpost')
     } else {
-        store.commit('insortPid', `system-login`)
+        store.commit('toPidName', `system-login`)
     }
 }
 
 const toUserInfoCard = () => {
     if (store.state.token) {
-        store.commit('insortPid', `user-${store.state.userId}`)
+        store.commit('toPidName', `user-${store.state.userId}`)
     } else {
-        store.commit('insortPid', `system-login`)
+        store.commit('toPidName', `system-login`)
     }
 }
 
 const toReflashFeeds = () => {
-    store.commit('insortPid', 'system-load')
+    store.commit('toPidName', 'system-load')
 }
 
 </script>

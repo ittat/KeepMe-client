@@ -6,26 +6,22 @@ import newPost from "@views/newPost.vue"
 import postDetail from "@views/postDetail.vue"
 import userInfo from "@views/userInfo.vue"
 
+import store from "@/store"
 
 const routes = [
     {
+        path: "/",
+        component: () => { store.commit('toPidName', 'system-load') }
+    },
+    {
         path: "/system-login",
-        component: logIn
+        component: () => { store.commit('toPidName', 'system-login') }
     },
     {   
         path: "/system-newpost",
-        component: newPost
-    },
-    {
-        path: "/feeds",
-        component: postDetail
-    },
-    {
-        path: "/userInfo/:id(\\d+)",
-        component: userInfo
+        component: () => { store.commit('toPidName', 'system-newpost') }
     }
 ]
-
 
 
 export default createRouter({

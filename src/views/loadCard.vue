@@ -1,6 +1,6 @@
 
 <script setup>
-import { provide } from "vue"
+import { onMounted, provide } from "vue"
 import { useStore } from "vuex"
 import { useRouter } from "vue-router"
 import http from "@http"
@@ -10,16 +10,17 @@ provide("showfooter", false)
 const store = useStore()
 const router = useRouter()
 
-//TODO
-//  判断 token 跳转
-http.get('feeds/start=0/length=10', {}).then(res => {
-    const feeds = res.data.data;
-    console.log(feeds);
-    for (let i = 0; i < feeds.length; i++) {
-        store.commit('insortPid', 'post-' + feeds[i].postId)
-    }
-})
+onMounted( async () => {
+    await store.dispatch("removeAllPosts")
 
+    const res = await http.get('feeds/start=0/length=20', {})
+    const feeds = res.data.data;
+    // console.log(feeds);
+    for (let i = 0; i < feeds.length; i++) {
+        store.commit('insortPidName', 'post-' + feeds[i].postId)
+    }
+    store.commit('closeCardbyPidName','system-load')
+})
 
 </script>
 

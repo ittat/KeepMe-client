@@ -43,6 +43,7 @@ const updatePost = async () => {
     postData.postContext = res.data.data.context
     postData.postDate = dectime(res.data.data.date) + ' ago'
     postData.userImg = res.data.data.userImg
+    postData.postResoure.img = res.data.data.img == "data:," ? null: res.data.data.img
 }
 
 onMounted(async () => {
@@ -51,7 +52,7 @@ onMounted(async () => {
 })
 
 const toUserInfo = (e) => {
-    store.commit('insortPid', `user-${postData.userId}`)
+    store.commit('toPidName', `user-${postData.userId}`)
 }
 
 
@@ -85,11 +86,10 @@ const toUserInfo = (e) => {
                 <span class="text-wrap text-center fs-5 lh-5">{{ postData.postContext }}</span>
 
                 <hr v-if="postData.postResoure.img || postData.postResoure.video" />
-                <icon
+                <img
                     v-if="postData.postResoure.img"
-                    name="img-error"
-                    iconType="png"
-                    width="inherit"
+                    :src="postData.postResoure.img"
+                    style="height: 60vw;"
                 />
                 <video
                     v-if="postData.postResoure.video"

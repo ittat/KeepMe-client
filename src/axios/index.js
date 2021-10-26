@@ -1,12 +1,10 @@
 /** 请求响应拦截器 */
 import axios from 'axios'
 
-
 // 先导入vuex,因为我们要使用到里面的状态对象
 // vuex的路径根据自己的路径去写
 import store from "@/store";
 
-console.log(store.state.token);
 
 // axios.defaults.baseURL = 'http://localhost:3001'
 axios.defaults.baseURL = 'http://localhost:3001'
@@ -21,7 +19,7 @@ axios.interceptors.request.use(
         // 如果存在，则统一在http请求的header都加上token，这样后台根据token判断你的登录情况
         // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
         // const token = store.state.token;
-        config.headers.Authorization = store.state.token;
+        config.headers.Authorization = store.getters.getToken;
         config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
         return config
     },
@@ -45,8 +43,11 @@ axios.interceptors.response.use(function (response) {
         store.commit('setUsername', null)
     }else if (response.data.code === 102) {
         store.commit('setToken', response.data.data.token)
+        localStorage.setItem('token', response.data.data.token)
         store.commit('setUserId', response.data.data.userId)
+        localStorage.setItem('userId', response.data.data.userId)
         store.commit('setUsername', response.data.data.username)
+        localStorage.setItem('username', response.data.data.username)
     }
 
     return response

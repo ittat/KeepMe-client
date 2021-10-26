@@ -1,14 +1,5 @@
 import { createStore } from 'vuex'
 
-
-
-import loadCard from "@views/loadCard.vue"
-import logIn from "@views/logIn.vue"
-import newPost from "@views/newPost.vue"
-import postDetail from "@views/postDetail.vue"
-import userInfo from "@views/userInfo.vue"
-
-
 const switchPidtoPath = (pid) => {
   if (pid.includes('system-')) {
     return '/' + pid
@@ -58,32 +49,46 @@ export default createStore({
       return switchPidtoPath(pidName)
     },
     getToken: state => {
-      return state.token
+        return state.token
     }
 
   },
   mutations: {
-    insortPid(state, pid) {
-      if (state.pids.includes(pid)) {
-        state.activePid = state.pids.indexOf(pid)
-        console.log(state.activePid);
+    // 插入 card pid，不跳转
+    insortPidName(state, pidName) {
+      if (state.pids.includes(pidName)) { } else {
+        // state.pids.splice(state.activePid + 1, 0, pidName)
+        state.pids.push(pidName)
+      }
+    },
+    // 去 pid card，如果没有就插入，同时跳转
+    toPidName(state, pidName) {
+      if (state.pids.includes(pidName)) {
+        state.activePid = state.pids.indexOf(pidName)
       } else {
-        state.pids.splice(state.activePid + 1, 0, pid)
+        state.pids.splice(state.activePid + 1, 0, pidName)
         state.activePid++
       }
     },
-    removePid(state, pid) {
-      state.pid.splice(pid, 1)
-    },
+    // 清除 指定 pid
+    // removePidName(state, pid) {
+    //   state.pids.splice(pid, 1)
+    // },
+    // 到 指定 pid
     toPid(state, pid) {
+      console.log(pid);
       if (state.pids[pid]) {
         state.activePid = pid
-      } else {
-        state.activePid = 0
       }
     },
     setToken(state, token) {
       state.token = token
+    },
+    setUsername(state, user) {
+      state.username = user.username
+    },
+    setUserId(state, userId) {
+      state.userId = userId
     },
     setActivePid(state, pid) {
       state.activePid = pid
@@ -106,12 +111,31 @@ export default createStore({
     },
     closeActivePid(state) {
       state.pids.splice(state.activePid, 1)
-      state.activePid--
+      if (state.activePid != 0) {
+        state.activePid--
+      }
+    },
+    removeAllPostPid(state) {
+      for (let index = 0; index < state.pids.length; index++) {
+        if (state.pids[index].includes("post-")) {
+          // 删除
+          state.pids.splice(index, 1)
+          console.log(state.pids)
+        }
+      }
+      state.activePid = state.pids.length == 0 ? 0 : state.pids.length - 1
+    },
+    closeCardbyPidName(state, pidName) {
+      let index = state.pids.indexOf(pidName)
+      if (index != -1) {
+        state.pids.splice(index, 1)
+      }
     }
   },
   actions: {
-    add(context, pid) {
-      context.commit('add', pid)
+    // removeAllPostPid
+    removeAllPosts(content) {
+      return content.commit('removeAllPostPid')
     }
   },
   modules: {

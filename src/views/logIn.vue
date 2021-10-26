@@ -9,6 +9,12 @@ import http from "@http"
 const store = useStore()
 const route = useRoute()
 
+
+// 如果 token 已经存在， 直接关闭
+if (store.state.token) {
+    store.commit('closeActivePid')
+}
+
 const userInfo = reactive({
     username: '',
     password: '',

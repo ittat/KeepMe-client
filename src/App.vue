@@ -8,20 +8,11 @@ import { watch } from 'vue'
 import store from "./store"
 const route = useRoute()
 
-watch(() => route.path, (newPath, oldPath) => {
-  console.log('route: ' + newPath + ' <== ' + oldPath);
-  if (newPath.includes('/system-')) {
-    console.log('save: ' + newPath.replace('/system', 'system'))
-    store.commit('insortPid', newPath.replace('/system', 'system'))
-  } else if (newPath.includes('/post/')) {
-    console.log('save: ' + newPath.replace('/post/', 'post-'))
-    store.commit('insortPid', newPath.replace('/post/', 'post-'))
-  } else {
-
-  }
-
-})
-
+if(localStorage.getItem('token')){
+  store.commit('setToken', localStorage.getItem('token'))
+  store.commit('setUsername', localStorage.getItem('username'))
+  store.commit('setUserId', localStorage.getItem('userId'))
+}
 
 </script>
 

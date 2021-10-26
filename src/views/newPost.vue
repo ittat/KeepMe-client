@@ -12,6 +12,13 @@ provide("bodysrcoll", true)
 
 const store = useStore()
 
+// 如果 token 不存在， 直接关闭， 去登陆卡片
+if (!store.state.token) {
+    store.commit('closeActivePid')
+    store.commit('toPidName', `system-login`)
+}
+
+
 const postData = reactive({
     context: "",
     resource: {

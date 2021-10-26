@@ -31,19 +31,13 @@ import newPost from "@views/newPost.vue"
 import postDetail from "@views/postDetail.vue"
 import userInfo from "@views/userInfo.vue"
 import { useStore } from "vuex"
-
-const store = useStore()
-
 import http from "@http"
 import { onMounted, watch } from "@vue/runtime-core"
-http.get('feeds/start=0/length=10', {}).then(res => {
-    const feeds = res.data.data;
-    for (let i = 0; i < feeds.length; i++) {
-        store.commit('insortPid', 'post-' + feeds[i].postId)
-    }
-})
+import { bind, clear } from 'size-sensor';
+ 
 
-store.commit('insortPid', 'user-1')
+
+const store = useStore()
 
 // 卡片滚动
 let startX = 0 // touch event 的初始 x 坐标
@@ -104,54 +98,15 @@ const onFeedsTouchEnd = (e) => {
 }
 
 
-</script>
+onMounted(()=>{
+    
+    // bind the event on element, will get the `unbind` function
+    const unbindCards = bind(document.getElementById("cards") , element => {
+    cardCount = store.state.pids.length
+    animate(-store.state.activePid * (100 / cardCount))
+    });
+})
 
-<script>
-var cardAnimate = {
-    animate: function (moveDirect) {
-
-        if (this.fingerTouch) {
-            this.frondCard.style = "transform: translateX(" + -(moveDirect) * this.cardCount + "%);"
-        } else {
-            this.frondCard.style = "transform: translateX(" + -(moveDirect) * this.cardCount + "%);transition: transform 0.3s ease-in-out;";
-        }
-
-    },
-    onDocumentMouseDown: function (e) {
-
-        this.startX = e.touches[0].clientX;
-        this.fingerTouch = false;
-
-    },
-    onDocumentMouseMove: function (e) {
-
-        this.animate(this.moveDirect + ((this.startX - e.touches[0].clientX) / window.innerWidth));
-
-        if (Math.abs(this.startX - e.touches[0].clientX) > 4) {
-            this.fingerTouch = true;
-        }
-
-    },
-    onDocumentMouseUp: function (e) {
-        if (this.fingerTouch) {
-            this.fingerTouch = false;
-            let moveDirect = this.startX - e.changedTouches[0].clientX > 0 ? 0 : 1
-            if (this.moveDirect == 0 && moveDirect == 1) {
-                // 第 0 页 右滑
-                this.moveDirect = 0;
-            } else if (this.moveDirect == this.cardCount - 1 && moveDirect == 0) {
-                // 最后页 左滑
-            } else {
-                //其他情况
-                this.moveDirect += this.startX - e.changedTouches[0].clientX > 0 ? 1 : -1;
-            }
-
-            this.animate(this.moveDirect)
-        }
-        console.log(this.moveDirect);
-
-    }
-}
 
 
 </script>
