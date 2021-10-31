@@ -79,6 +79,7 @@ const login = async () => {
                         class="form-control shadow-sm"
                         :class="{ 'is-invalid': userInfo.isMissPassd }"
                         placeholder="密码"
+                        @keyup.enter="login"
                     />
                 </div>
 

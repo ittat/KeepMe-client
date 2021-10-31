@@ -14,6 +14,7 @@ export default defineConfig({
       "@views": path.resolve(__dirname, "./src/views"),
       "@http": path.resolve(__dirname, "./src/axios"),
       "@utils": path.resolve(__dirname, "./src/utils"),
+      "@mitt": path.resolve(__dirname, "./src/mitt/mitt.js"),
     },
   }
 })

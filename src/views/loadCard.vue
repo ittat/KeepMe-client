@@ -5,21 +5,27 @@ import { useStore } from "vuex"
 import { useRouter } from "vue-router"
 import http from "@http"
 import Card from "@components/Card.vue"
+import mitt from "@mitt"
 provide("showheader", false)
 provide("showfooter", false)
 const store = useStore()
 const router = useRouter()
 
-onMounted( async () => {
+onMounted(async () => {
     await store.dispatch("removeAllPosts")
 
     const res = await http.get('feeds/start=0/length=20', {})
-    const feeds = res.data.data;
-    // console.log(feeds);
-    for (let i = 0; i < feeds.length; i++) {
-        store.commit('insortPidName', 'post-' + feeds[i].postId)
+    if (res.data.code == 105) {
+        const feeds = res.data.data;
+        for (let i = 0; i < feeds.length; i++) {
+            store.commit('insortPidName', 'post-' + feeds[i].postId)
+        }
+        mitt.emit('alertOK','Updated!')
+        store.commit('closeCardbyPidName', 'system-load')
+    }else{
+        console.log(res.data);
+        mitt.emit('alertWarn','Error!')
     }
-    store.commit('closeCardbyPidName','system-load')
 })
 
 </script>

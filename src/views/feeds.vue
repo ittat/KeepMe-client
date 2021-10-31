@@ -13,7 +13,7 @@
                 class="d-inline-flex"
                 style="width:100vw"
             >
-                <postDetail v-if="pid.includes('post-')" :postId="pid.replace('post-', '')"></postDetail>
+                <postCard v-if="pid.includes('post-')" :postId="pid.replace('post-', '')"></postCard>
                 <userInfo v-else-if="pid.includes('user-')" :userId="pid.replace('user-', '')"></userInfo>
                 <newPost v-else-if="pid.includes('system-newpost')"></newPost>
                 <logIn v-else-if="pid.includes('system-login')"></logIn>
@@ -28,7 +28,7 @@
 import loadCard from "@views/loadCard.vue"
 import logIn from "@views/logIn.vue"
 import newPost from "@views/newPost.vue"
-import postDetail from "@views/postDetail.vue"
+import postCard from "@views/postCard.vue"
 import userInfo from "@views/userInfo.vue"
 import { useStore } from "vuex"
 import http from "@http"

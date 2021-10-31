@@ -1,12 +1,8 @@
 <script setup>
 import feeds from "@views/feeds.vue"
 import navBar from "@views/navBar.vue"
-
-
-import { useRoute } from 'vue-router'
-import { watch } from 'vue'
+import compAlert from "@components/alert.vue"
 import store from "./store"
-const route = useRoute()
 
 if(localStorage.getItem('token')){
   store.commit('setToken', localStorage.getItem('token'))
@@ -19,6 +15,7 @@ if(localStorage.getItem('token')){
 <template>
   <feeds></feeds>
   <navBar></navBar>
+  <compAlert></compAlert>
 </template>
 
 <style>

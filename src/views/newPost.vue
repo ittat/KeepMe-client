@@ -6,6 +6,7 @@ import { useStore } from "vuex"
 import { useRoute } from "vue-router"
 import { stringify } from 'qs' // 引入qs模块，用来序列化post类型的数据
 import http from "@http"
+import mitt from "@mitt"
 provide("showheader", true)
 provide("showfooter", true)
 provide("bodysrcoll", true)
@@ -41,14 +42,11 @@ const getBase64Image = () => {
 }
 
 const changeImgPath = (e) => {
-    // postData.resource.img = e.target.files[0]
-    console.log(e)
     postData.resource.img = e.target.files[0]
     postData.resource.imgUrl = URL.createObjectURL(postData.resource.img)
 }
 
 const changeVideoPath = (e) => {
-    // postData.resource.video = e.target.files[0]
     console.log(e.target.files[0])
     postData.resource.video = e.target.files[0]
     postData.resource.videoUrl = URL.createObjectURL(postData.resource.video)
@@ -62,16 +60,19 @@ const sendThisPost =  async () => {
     if (postData.context != "") {
         const res = await http.post(`/post`, stringify({
             context: postData.context,
-            img: (postData.resource.img == null ? null: getBase64Image())
+            img: (postData.resource.img == null ? "null" : getBase64Image())
         }))
         console.log(res.data)
         if (res.data.code == 105) {
             // OK go back to the previous page
+            mitt.emit('alertOK',"发送成功")
             store.commit('closeActivePid')
         }else{
-            postData.context += " \n !!! 发送失败！！！"
+           mitt.emit('alertWarn',"发送失败")
         }
         
+    }else{
+        mitt.emit('alertWarn',"请输入内容")
     }
 }
 
@@ -163,30 +164,6 @@ const sendThisPost =  async () => {
         </template>
     </Card>
 
-    <!-- Modal -->
-    <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-    >
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">...</div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </template> 
 
 

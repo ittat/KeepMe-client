@@ -39,19 +39,19 @@ const isfull = computed(() => {
 
 
 onMounted(() => {
-  watch(() => store.state.activePid, (newpid, oldpid) => {
-    console.log('activePid change: ' + oldpid + ' ==> ' + newpid)
-    const cardDom = document.getElementById('main')
-    if (newpid > oldpid) {
-      cardDom.classList.add('switchright')
-    } else {
-      cardDom.classList.add('switchleft')
-    }
-    setTimeout(() => {
-      cardDom.classList.remove('switchright')
-      cardDom.classList.remove('switchleft')
-    }, 300);
-  })
+  // watch(() => store.state.activePid, (newpid, oldpid) => {
+  //   console.log('activePid change: ' + oldpid + ' ==> ' + newpid)
+  //   const cardDom = document.getElementById('main')
+  //   if (newpid > oldpid) {
+  //     cardDom.classList.add('switchright')
+  //   } else {
+  //     cardDom.classList.add('switchleft')
+  //   }
+  //   setTimeout(() => {
+  //     cardDom.classList.remove('switchright')
+  //     cardDom.classList.remove('switchleft')
+  //   }, 300);
+  // })
 })
 
 

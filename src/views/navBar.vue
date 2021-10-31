@@ -1,14 +1,14 @@
 <template>
     <div class="nav-div d-flex flex-row justify-content-center align-items-center">
         <div class="nav-bar d-flex flex-row justify-content-center align-items-center">
-            <icon
+            <!-- <icon
                 @click="toPrevCard"
                 class="mx-3 my-1"
                 id="navleft"
                 name="nav-arrow-right"
                 iconType="svg"
                 width="1.6rem"
-            ></icon>
+            ></icon> -->
             <icon
                 @click="toUserInfoCard"
                 class="mx-3 my-1"
@@ -31,13 +31,13 @@
                 iconType="svg"
                 width="1.6rem"
             ></icon>
-            <icon
+            <!-- <icon
                 @click="toNextCard"
                 class="mx-3 my-1"
                 name="nav-arrow-right"
                 iconType="svg"
                 width="1.6rem"
-            ></icon>
+            ></icon> -->
         </div>
     </div>
 </template>
