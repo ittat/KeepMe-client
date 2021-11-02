@@ -17,6 +17,8 @@
                 <userInfo v-else-if="pid.includes('user-')" :userId="pid.replace('user-', '')"></userInfo>
                 <newPost v-else-if="pid.includes('system-newpost')"></newPost>
                 <logIn v-else-if="pid.includes('system-login')"></logIn>
+                <settingCard v-else-if="pid.includes('system-setting')"></settingCard>
+                <messagesCard v-else-if="pid.includes('system-messages')"></messagesCard>
                 <loadCard v-else></loadCard>
             </div>
         </div>
@@ -30,10 +32,12 @@ import logIn from "@views/logIn.vue"
 import newPost from "@views/newPost.vue"
 import postCard from "@views/postCard.vue"
 import userInfo from "@views/userInfo.vue"
+import settingCard from "@views/setting.vue"
+import messagesCard from "@views/messages.vue"
 import { useStore } from "vuex"
 import http from "@http"
 import { onMounted, watch } from "@vue/runtime-core"
-import { bind, clear } from 'size-sensor';
+import { bind, clear } from 'size-sensor'
 
 
 
@@ -57,12 +61,18 @@ watch(() => store.state.activePid, (New, Old) => {
 })
 
 
+let feedDom = null
+
+onMounted(() => {
+    feedDom = document.getElementById('cards')
+})
+
 const animate = (direct) => {
     requestAnimationFrame(() => {
         if (fingerTouch) {
-            document.getElementById('cards').style = "transform: translateX(" + direct + "%);"
+            feedDom.style = "transform: translateX(" + direct + "%);"
         } else {
-            document.getElementById('cards').style = "transform: translateX(" + direct + "%);transition: transform 0.3s ease-in-out;";
+            feedDom.style = "transform: translateX(" + direct + "%);transition: transform 0.3s ease-in-out;";
         }
     })
 
@@ -75,9 +85,8 @@ const onFeedsTouchDown = (e) => {
 
 const onFeedsTouchMove = (e) => {
     if (Math.abs(startX - e.touches[0].clientX) > 100) {
-        animate(-(activeCard + ((startX - e.touches[0].clientX) / window.innerWidth)) * (100 / cardCount));
-
         fingerTouch = true;
+        animate(-(activeCard + ((startX - e.touches[0].clientX) / window.innerWidth)) * (100 / cardCount));
     }
 }
 

@@ -2,9 +2,11 @@
 import Card from "@components/Card.vue"
 import userImg from "@components/userImg.vue"
 import { useRoute } from "vue-router"
-import { provide, onMounted, reactive } from "@vue/runtime-core"
+import { provide, onMounted, reactive, ref } from "@vue/runtime-core"
 import http from "@http"
 import { useStore } from "vuex"
+import mitt from "@mitt"
+import qs from "qs"
 
 provide("showheader", true)
 provide("showfooter", false)
@@ -23,21 +25,55 @@ const props = defineProps({
 const userData = reactive({
     username: "KeepMe",
     desc: "I love KeepMe ...",
-    userImg: "https://avatars2.githubusercontent.com/u/8186664?s=460&v=4"
+    userImg: "https://avatars2.githubusercontent.com/u/8186664?s=460&v=4",
+    isfollow: false
 })
+
+//导航页面
+const infoPageNav = ref([1, 0, 0])
+
+/*
+* param - pageName - 导航页名字：info | post | followList 
+* return - void
+*/
+const toInfoPage = (pageName) => {
+    if (pageName === "infos") {
+        infoPageNav.value = [1, 0, 0]
+    } else if (pageName === "posts") {
+        infoPageNav.value = [0, 1, 0]
+    } else {
+        infoPageNav.value = [0, 0, 1]
+    }
+    console.log(infoPageNav.value)
+}
+
 const updateUserInfo = async () => {
     const res = await http.get(`/user/${props.userId}`)
-    console.log(res.data)
     if (res.data.code == 105) {
         userData.username = res.data.data.username
         userData.desc = res.data.data.desc
         userData.userImg = res.data.data.userImg
+        userData.isfollow = res.data.data.isfollow
     }
 }
 
+
+const follow = async (action) => {
+    let res = null
+    if (action === "add") {
+        res = await http.get(`/user/${props.userId}/follow`)
+    } else {
+        res = await http.get(`/user/${props.userId}/unfollow`)
+    }
+    if (res.data.code == 105) {
+        updateUserInfo()
+        mitt.emit('alertOK', 'OK')
+    }
+}
 onMounted(async () => {
-    console.log("mounted")
     updateUserInfo()
+    if (userData.username === store.state.username) toInfoPage('posts')
+
 })
 
 
@@ -57,34 +93,68 @@ onMounted(async () => {
             <div class="mb-2 d-flex flex-row align-items-center justify-content-center">
                 <icon
                     v-if="userData.username != store.state.username"
-                    name="at"
+                    name="about"
                     iconType="svg"
                     width="1.5rem"
+                    class="active"
+                    @click="toInfoPage('infos')"
                 />
-                <icon name="posts" iconType="svg" width="1.5rem" />
-                <!-- todo -->
+                <icon
+                    name="posts"
+                    class="active"
+                    iconType="svg"
+                    width="1.5rem"
+                    @click="toInfoPage('posts')"
+                />
+
                 <icon
                     v-if="userData.username == store.state.username"
                     name="friend"
                     iconType="svg"
                     width="1.5rem"
+                    class="active"
+                    @click="toInfoPage('follower')"
                 />
-                <icon v-else name="follow" iconType="svg" width="1.5rem" />
+                <icon
+                    v-else-if="userData.isfollow"
+                    name="followed"
+                    class="active"
+                    iconType="svg"
+                    width="1.5rem"
+                    @click="follow('remove')"
+                />
+                <icon
+                    v-else
+                    name="follow"
+                    class="active"
+                    iconType="svg"
+                    width="1.5rem"
+                    @click="follow('add')"
+                />
             </div>
         </template>
         <template v-slot:body>
-            <div id="infos" class="d-flex flex-column align-items-start">
-                <i class="bi bi-info fs-6">Infos:</i>
-                <!-- todo -->
-                <div class="d-flex flex-column align-items-start mx-4 ">
-                    <span class>性别： 男</span>
-                    <span class>地区： 快乐星球 A302</span>
-                    <span class>签名：</span>
-                    <span class>普普通通测试员</span>
-                </div>
+            <!-- todo -->
+            <div v-show="infoPageNav[0]" id="info" class="w-100">
+                <ul class="list-group">
+                    <li class="list-group-item">性别： 男</li>
+                    <li class="list-group-item">地区： 快乐星球 A302</li>
+                    <li class="list-group-item">签名： 普普通通测试员</li>
+                </ul>
+            </div>
+
+            <div v-show="infoPageNav[1]" id="postsList" class="mx-4">
+                <ul class="list-group">
+                    <li class="list-group-item">实现中 。。。</li>
+                </ul>
+            </div>
+
+            <div v-show="infoPageNav[2]" id="followList" class="mx-4">
+                <ul class="list-group">
+                    <li class="list-group-item">实现中 。。。</li>
+                </ul>
             </div>
         </template>
-        <template v-slot:footer></template>
     </Card>
 </template>
 

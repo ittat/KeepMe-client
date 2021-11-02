@@ -117,10 +117,9 @@ export default createStore({
     },
     removeAllPostPid(state) {
       for (let index = 0; index < state.pids.length; index++) {
-        if (state.pids[index].includes("post-")) {
+        if (state.pids[index].includes("post-") || state.pids[index] === "system-load") {
           // 删除
           state.pids.splice(index, 1)
-          console.log(state.pids)
         }
       }
       state.activePid = state.pids.length == 0 ? 0 : state.pids.length - 1

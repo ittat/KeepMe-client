@@ -4,7 +4,7 @@ import navBar from "@views/navBar.vue"
 import compAlert from "@components/alert.vue"
 import store from "./store"
 
-if(localStorage.getItem('token')){
+if (localStorage.getItem('token')) {
   store.commit('setToken', localStorage.getItem('token'))
   store.commit('setUsername', localStorage.getItem('username'))
   store.commit('setUserId', localStorage.getItem('userId'))

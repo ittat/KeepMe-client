@@ -84,9 +84,9 @@ const postCommit = () => {
             </div>
         </template>
         <template v-slot:body>
-            <div class="d-flex flex-column w-100 h-100 justify-content-center">
-                <ul v-for="commit in commitData.value" :key="commit.id" class="list-group">
-                    <li class="list-group-item">
+            <div class="d-flex flex-column w-100 h-100 justify-content-start">
+                <ul class="list-group">
+                    <li v-for="commit in commitData.value" :key="commit.id" class="list-group-item">
                         <h5 class="mb-1">{{commit.username}}</h5>
                         <small class="text-muted">{{dectime(commit.date) + ' ago'}}</small>
                         <p class="mb-1">{{ commit.context }}</p>

@@ -1,5 +1,5 @@
 <template>
-  <div id="main" class="mx-3 switchtop" style="width:100%">
+  <div id="main" class="mx-3 switchtop" style="width:100%" :style="{ 'transform': offset }">
     <div class="card card-shadow" :class="{ 'card-full': true }">
       <div
         v-show="hasHeader"
@@ -38,44 +38,38 @@ const isfull = computed(() => {
 })
 
 
-onMounted(() => {
-  // watch(() => store.state.activePid, (newpid, oldpid) => {
-  //   console.log('activePid change: ' + oldpid + ' ==> ' + newpid)
-  //   const cardDom = document.getElementById('main')
-  //   if (newpid > oldpid) {
-  //     cardDom.classList.add('switchright')
-  //   } else {
-  //     cardDom.classList.add('switchleft')
-  //   }
-  //   setTimeout(() => {
-  //     cardDom.classList.remove('switchright')
-  //     cardDom.classList.remove('switchleft')
-  //   }, 300);
-  // })
-})
-
-
 let startY = 0
-let fingerTouch = false
+let curY = 0
 
+
+let cardDom = null
+
+const offset = ref('')
+
+
+const animate = (direct) => {
+  // requestAnimationFrame(() => {
+    offset.value = `translateY(${direct}px)`
+  // })
+
+}
 
 const onFeedsTouchDown = (e) => {
   startY = e.touches[0].clientY;
-  fingerTouch = false;
 }
 
 const onFeedsTouchMove = (e) => {
-    if (Math.abs(startY - e.touches[0].clientY) > 45) {
-        fingerTouch = true;
-    }
+  curY = e.touches[0].clientY
+  animate(- (startY - e.touches[0].clientY))
+
 }
 
 const onFeedsTouchEnd = (e) => {
-  console.log(fingerTouch);
-  if (fingerTouch) {
-    fingerTouch = false;
-      store.commit('closeActivePid')
-    }
+  if (Math.abs(curY - startY >250)) {
+    store.commit('closeActivePid')
+  } else {
+    animate(0)
+  }
 }
 
 
@@ -84,12 +78,13 @@ const onFeedsTouchEnd = (e) => {
 
 <style scoped>
 #main {
-  background-color: #fbfbfb;
+  background-color: rgb(197, 197, 197);
   border: rgba(213, 213, 213, 0.24);
-  border-radius: 0.51rem;
+  border-radius: 0.4rem;
   border-style: solid;
   border-width: 0.2rem;
   height: 100%;
+  /* box-shadow: 0 0 4px 1px gainsboro; */
 }
 
 .switchright {
@@ -133,28 +128,11 @@ const onFeedsTouchEnd = (e) => {
   }
 }
 
-.card-shadow {
-  /* box-shadow: 
-      0 0px 8px 2px rgba(0, 0, 0, 0.2), 
-      3px 3px 0 0 #f6f6f6, 
-      5px 3px 8px 2px rgba(0, 0, 0, 0.2), 
-      7px 6px 0 0 #f6f6f6, 
-      9px 6px 8px 2px rgba(0, 0, 0, 0.2),
-      10px 9px 0 0 #f6f6f6,
-      15px 9px 8px 2px rgba(0, 0, 0, 0.2)
-    ; */
-}
-
 .card-full {
   height: inherit;
 }
 
 .body-scroll {
   overflow-y: auto;
-}
-
-.card-footer {
-  /* height: inherit; */
-  /* overflow-y: auto; */
 }
 </style>

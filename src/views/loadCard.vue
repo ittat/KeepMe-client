@@ -20,13 +20,15 @@ onMounted(async () => {
         for (let i = 0; i < feeds.length; i++) {
             store.commit('insortPidName', 'post-' + feeds[i].postId)
         }
-        mitt.emit('alertOK','Updated!')
+        mitt.emit('alertOK', 'Updated!')
         store.commit('closeCardbyPidName', 'system-load')
-    }else{
+    } else {
         console.log(res.data);
-        mitt.emit('alertWarn','Error!')
+        mitt.emit('alertWarn', 'Error!')
     }
 })
+
+
 
 </script>
 

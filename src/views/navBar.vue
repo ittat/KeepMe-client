@@ -8,11 +8,18 @@
                 name="nav-arrow-right"
                 iconType="svg"
                 width="1.6rem"
-            ></icon> -->
+            ></icon>-->
             <icon
                 @click="toUserInfoCard"
                 class="mx-3 my-1"
                 name="user"
+                iconType="svg"
+                width="1.6rem"
+            ></icon>
+            <icon
+                @click="toMessagesCard"
+                class="mx-3 my-1"
+                name="messages"
                 iconType="svg"
                 width="1.6rem"
             ></icon>
@@ -31,13 +38,20 @@
                 iconType="svg"
                 width="1.6rem"
             ></icon>
+            <icon
+                @click="toSettingCard"
+                class="mx-3 my-1"
+                name="setting"
+                iconType="svg"
+                width="1.6rem"
+            ></icon>
             <!-- <icon
                 @click="toNextCard"
                 class="mx-3 my-1"
                 name="nav-arrow-right"
                 iconType="svg"
                 width="1.6rem"
-            ></icon> -->
+            ></icon>-->
         </div>
     </div>
 </template>
@@ -79,14 +93,26 @@ const toReflashFeeds = () => {
     store.commit('toPidName', 'system-load')
 }
 
+const toSettingCard = () => {
+    store.commit('toPidName', 'system-setting')
+}
+
+const toMessagesCard = () => {
+    if (store.state.token) {
+        store.commit('toPidName', 'system-messages')
+    } else {
+        store.commit('toPidName', `system-login`)
+    }
+}
 </script>
 
 <style scoped>
 .nav-div {
-    background-color: #fff0;
+    background-color: rgba(255, 255, 255, 0.007);
     padding: 0;
     /* height: inherit; */
     height: calc(100vh - 85%);
+    border-radius: 0 0 1rem 1rem;
 }
 
 .nav-bar {
