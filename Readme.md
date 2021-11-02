@@ -25,10 +25,12 @@ npm run dev
 ### UI 截图
 
 <div style="display:flex;">
-<img src="/assert/MP4_20211026_142859.gif" alt="截图1" title="截图1" style="width:600px">
+<img src="/assert/MP4_20211102_111355.gif" alt="截图1" title="截图1" style="width:500px">
 </div>
 <hr />
 <div style="display:flex;">
+<img src="/assert/Screenshot_20211101-194841.png" alt="截图1" title="截图1" style="width:300px">
+<img src="/assert/Screenshot_20211101-194941.png" alt="截图1" title="截图1" style="width:300px">
 <img src="/assert/Screenshot_20211026-133749.png" alt="截图1" title="截图1" style="width:300px">
 <img src="/assert/Screenshot_20211026-133801.png" alt="截图2" title="截图2" style="width:300px">
 <img src="/assert/Screenshot_20211026-134405.png" alt="截图3" title="截图3" style="width:300px">
