@@ -6,7 +6,7 @@
         @touchmove="onFeedsTouchMove"
         @touchend="onFeedsTouchEnd"
     >
-        <div id="cards" class="d-flex">
+        <div id="cards" class="d-flex" ref="feedDom">
             <div
                 v-for="pid in store.state.pids"
                 v-bind:key="pid"
@@ -36,7 +36,7 @@ import settingCard from "@views/setting.vue"
 import messagesCard from "@views/messages.vue"
 import { useStore } from "vuex"
 import http from "@http"
-import { onMounted, watch } from "@vue/runtime-core"
+import { onMounted, watch, ref, onBeforeUnmount } from "@vue/runtime-core"
 import { bind, clear } from 'size-sensor'
 
 
@@ -54,25 +54,19 @@ let fingerTouch = false // 是否为滑动
 // 因为复杂类型是指针存放
 watch(() => store.state.activePid, (New, Old) => {
     cardCount = store.state.pids.length
-    // animate(-activeCard * (100 / cardCount))
     activeCard = New
     animate(-New * (100 / cardCount))
-
 })
 
 
-let feedDom = null
-
-onMounted(() => {
-    feedDom = document.getElementById('cards')
-})
+const feedDom = ref(null)
 
 const animate = (direct) => {
     requestAnimationFrame(() => {
         if (fingerTouch) {
-            feedDom.style = "transform: translateX(" + direct + "%);"
+            feedDom.value.style = "transform: translateX(" + direct + "%);"
         } else {
-            feedDom.style = "transform: translateX(" + direct + "%);transition: transform 0.3s ease-in-out;";
+            feedDom.value.style = "transform: translateX(" + direct + "%);transition: transform 0.4s ease-out;";
         }
     })
 
@@ -84,10 +78,11 @@ const onFeedsTouchDown = (e) => {
 }
 
 const onFeedsTouchMove = (e) => {
-    if (Math.abs(startX - e.touches[0].clientX) > 100) {
-        fingerTouch = true;
-        animate(-(activeCard + ((startX - e.touches[0].clientX) / window.innerWidth)) * (100 / cardCount));
+    // get move speed
+    if (Math.abs(startX - e.touches[0].clientX) > 50) {
+        fingerTouch = true
     }
+    animate(-(activeCard + ((startX - e.touches[0].clientX) / window.innerWidth)) * (100 / cardCount));
 }
 
 const onFeedsTouchEnd = (e) => {
@@ -106,6 +101,8 @@ const onFeedsTouchEnd = (e) => {
             activeCard += startX - e.changedTouches[0].clientX > 0 ? 1 : -1;
             store.commit('setActivePid', activeCard)
         }
+    } else {
+        animate(-activeCard * (100 / cardCount))
     }
 }
 
@@ -117,6 +114,10 @@ onMounted(() => {
         cardCount = store.state.pids.length
         animate(-store.state.activePid * (100 / cardCount))
     });
+})
+
+onBeforeUnmount(() => {
+    unbindCards.unbind()
 })
 
 

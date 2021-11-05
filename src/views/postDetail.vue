@@ -41,7 +41,7 @@ const route = useRoute()
 
 const updatePost = async () => {
     const res = await http.get(`/post/${props.postId}`)
-    console.log(res.data)
+    // console.log(res.data)
     postData.userId = res.data.data.userId
     postData.username = res.data.data.username
     postData.postContext = res.data.data.context

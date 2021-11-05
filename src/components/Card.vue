@@ -1,5 +1,5 @@
 <template>
-  <div id="main" class="mx-3 switchtop" style="width:100%" :style="{ 'transform': offset }">
+  <div id="main" class="mx-3 switchtop" ref="mainDom">
     <div class="card card-shadow" :class="{ 'card-full': true }">
       <div
         v-show="hasHeader"
@@ -42,15 +42,14 @@ let startY = 0
 let curY = 0
 
 
-let cardDom = null
+const mainDom  = ref(null)
 
 const offset = ref('')
 
-
 const animate = (direct) => {
-  // requestAnimationFrame(() => {
-    offset.value = `translateY(${direct}px)`
-  // })
+  requestAnimationFrame(() => {
+  mainDom.value.style =  "transform: translateY(" + direct + "px);"
+  })
 
 }
 
@@ -65,7 +64,7 @@ const onFeedsTouchMove = (e) => {
 }
 
 const onFeedsTouchEnd = (e) => {
-  if (Math.abs(curY - startY >250)) {
+  if (Math.abs(curY - startY > 250)) {
     store.commit('closeActivePid')
   } else {
     animate(0)
@@ -84,6 +83,7 @@ const onFeedsTouchEnd = (e) => {
   border-style: solid;
   border-width: 0.2rem;
   height: 100%;
+  width:100%;
   /* box-shadow: 0 0 4px 1px gainsboro; */
 }
 

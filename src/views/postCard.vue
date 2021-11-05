@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, provide, reactive, ref,shallowRef } from "vue"
+import { shallowRef } from "vue"
 import { useStore } from "vuex"
 import postDetail from "@views/postDetail.vue"
 import postCommit from "@views/postCommit.vue"
@@ -15,10 +15,6 @@ const props = defineProps({
     }
 })
 
-
-onMounted(async () => {
-    console.log("mounted")
-})
 
 const goTo = (path) => {
     if (path === "postCommit") {

@@ -20,7 +20,7 @@ const props = defineProps({
   }
 })
 
-const path = '/src/assert/icons/' + props.iconType + '/' + props.name + '.' + props.iconType
+const path = '/img/icons/' + props.iconType + '/' + props.name + '.' + props.iconType
 
 </script>
 
