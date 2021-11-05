@@ -6,8 +6,11 @@ import axios from 'axios'
 import store from "@/store";
 
 
-axios.defaults.baseURL = 'http://192.168.42.7:3001'
-// axios.defaults.baseURL = 'http://localhost:3001'
+if (import.meta.env.MODE === "development") {
+    axios.defaults.baseURL = 'http://localhost:3001'
+} else {
+    axios.defaults.baseURL = 'http://192.168.42.7:3001'
+}
 
 axios.defaults.timeout = 10000 // 请求超时设置
 axios.defaults.withCredentials = false // 表示跨域请求时是否需要使用凭证,默认否
@@ -37,11 +40,11 @@ axios.interceptors.response.use(function (response) {
     //如果响应status 为 未登陆101 和 登陆成功 102, 成功退出 103 ，需要更新 token
 
     //需要router到登陆页面
-    if (response.data.code === 101 || response.data.code === 103)  {
+    if (response.data.code === 101 || response.data.code === 103) {
         store.commit('setToken', null)
         store.commit('setUserId', null)
         store.commit('setUsername', null)
-    }else if (response.data.code === 102) {
+    } else if (response.data.code === 102) {
         store.commit('setToken', response.data.data.token)
         localStorage.setItem('token', response.data.data.token)
         store.commit('setUserId', response.data.data.userId)
